@@ -1,0 +1,9 @@
+#include "c.glsl"
+
+layout(binding = 0) buffer Number {
+  uint number;
+} n;
+
+void main() {
+  n.number = c();
+}

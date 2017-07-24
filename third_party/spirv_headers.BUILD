@@ -35,7 +35,7 @@ cc_library(
         "include/spirv/1.2/spirv.hpp",
         "include/spirv/1.2/spirv.hpp11",
     ],
-    includes = ["include"],
+    strip_include_prefix = "include",
 )
 
 filegroup(
