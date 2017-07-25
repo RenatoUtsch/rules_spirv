@@ -22,31 +22,48 @@ load(
     "get_transitive_version",
 )
 
+def _get_glslc_string(glslc):
+    """Returns the glslc string path."""
+    return "{} ".format(glslc.path)
+
+def _get_output_string(binary):
+    """Returns the binary output string flag."""
+    # TODO(renatoutsch): inspect possible injection security holes here.
+    return "-o {}".format(binary.path)
+
+def _get_version_string(version):
+    """Converts the version to a std format."""
+    # TODO(renatoutsch): inspect possible injection security holes here.
+    return "-std={} ".format(version)
+
 def _get_define_string(defines):
     """Converts from defines depset to a cmd string."""
     # TODO(renatoutsch): inspect possible injection security holes here.
     define_strings = ["-D{}".format(define) for define in defines.to_list()]
-    return " ".join(define_strings)
+    if define_strings:
+        return "{} ".format(" ".join(define_strings))
+    return ""
 
 def _get_include_string(includes):
     """Converts from includes depset to a cmd string."""
     # TODO(renatoutsch): inspect possible injection security holes here.
     include_strings = ["-I{}".format(include) for include in includes.to_list()]
-    return " ".join(include_strings)
+    include_strings.append("-I.")  # To reference files from root.
+    return "{} ".format(" ".join(include_strings))
 
 def _get_src_string(srcs):
     """Converts from srcs attr to a string. Must have only one element."""
     if len(srcs) != 1:
         fail("glsl_binary srcs must have exactly one source file.")
 
-    return srcs[0].path
+    return "{} ".format(srcs[0].path)
 
 def _get_optimization_string(optimization_level):
     """Returns the optimization string from the optimization level."""
     if optimization_level == 0:
-        return "0"
+        return ""
     if optimization_level == 1:
-        return "s"
+        return "-Os "
     fail("Invalid optimization_level attribute. Expected 0 or 1.")
 
 def _get_shader_stage_string(shader_stage):
@@ -54,14 +71,15 @@ def _get_shader_stage_string(shader_stage):
     if (shader_stage == "vertex" or shader_stage == "fragment" or
             shader_stage == "tesscontrol" or shader_stage == "tesseval" or
             shader_stage == "geometry" or shader_stage == "compute"):
-        return "-fshader-stage={}".format(shader_stage)
+        return "-fshader-stage={} ".format(shader_stage)
     return ""
 
 def _get_target_env_string(target_env):
     """Returns the target env string if it is valid."""
-    if (target_env == "vulkan" or target_env == "opengl" or
-            target_env == "opengl_compat"):
-        return target_env
+    if target_env == "vulkan":
+        return ""
+    if target_env == "opengl" or target_env == "opengl_compat":
+        return "--target-env={} ".format(target_env)
     fail("glsl_binary: Invalid target_env: {}".format(target_env))
 
 def _impl(ctx):
@@ -73,6 +91,9 @@ def _impl(ctx):
     includes = get_transitive_includes(ctx.attr.includes, ctx.attr.deps)
     version = get_transitive_version(ctx.attr.version, ctx.attr.deps)
 
+    glslc_string = _get_glslc_string(glslc)
+    output_string = _get_output_string(binary)
+    version_string = _get_version_string(version)
     define_string = _get_define_string(defines)
     include_string = _get_include_string(includes)
     src_string = _get_src_string(ctx.files.srcs)
@@ -80,11 +101,9 @@ def _impl(ctx):
     optimization_string = _get_optimization_string(ctx.attr.optimization_level)
     target_env_string = _get_target_env_string(ctx.attr.target_env)
 
-    cmd = ("{} -std={} -O{} ".format(glslc.path, version, optimization_string) +
-           "--target-env={} ".format(target_env_string) +
-           "{} ".format(shader_stage_string) +
-           "{} {} {} ".format(define_string, include_string, src_string) +
-           "-o {}".format(binary.path))
+    cmd = (glslc_string + version_string + optimization_string +
+           target_env_string + shader_stage_string + define_string +
+           include_string + src_string + output_string)
     ctx.action(
         inputs = srcs.to_list() + [glslc],
         outputs = [binary],
