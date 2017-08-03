@@ -15,15 +15,15 @@
 # Selects the right thread lib depending on the OS.
 # TODO(renatoutsch): use platform_select once it's working
 THREAD_LIBS = select({
-    "@rules_platform//platform:freebsd": ["-lpthread"],
-    "@rules_platform//platform:linux_k8": ["-lpthread"],
-    "@rules_platform//platform:linux_arm": ["-lpthread"],
-    "@rules_platform//platform:linux_piii": ["-lpthread"],
-    "@rules_platform//platform:linux_ppc": ["-lpthread"],
-    "@rules_platform//platform:linux_ppc64": ["-lpthread"],
-    "@rules_platform//platform:linux_s390x": ["-lpthread"],
-    "@rules_platform//platform:windows_x64": ["-lpsapi"],
-    "@rules_platform//platform:windows_x64_msvc": ["-lpsapi"],
-    "@rules_platform//platform:windows_x64_msys": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//platform:freebsd": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_k8": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_arm": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_piii": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_ppc": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_ppc64": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:linux_s390x": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64_msvc": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64_msys": ["-lpsapi"],
     "//conditions:default": [],
 })

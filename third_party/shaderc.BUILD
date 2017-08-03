@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_platform//platform:defs.bzl", "platform_select")
 load("@rules_spirv//third_party:threads.bzl", "THREAD_LIBS")
 
 package(default_visibility = ["//visibility:public"])

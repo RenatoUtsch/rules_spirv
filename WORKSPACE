@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-workspace(name = "rules_spirv")
+workspace(name = "com_github_renatoutsch_rules_spirv")
 
 load("//spirv:defs.bzl", "spirv_repositories")
 

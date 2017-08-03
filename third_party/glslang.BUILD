@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_platform//platform:defs.bzl", "platform_select")
+load("@com_github_renatoutsch_rules_system//platform:defs.bzl", "platform_select")
 load("@rules_spirv//third_party:threads.bzl", "THREAD_LIBS")
 
 package(default_visibility = ["//visibility:public"])
@@ -21,9 +21,9 @@ licenses(["notice"])
 
 # TODO(renatoutsch): use platform_select once it's working
 OS_COPTS = select({
-    "@rules_platform//platform:windows_x64": ["-DGLSLANG_OSINCLUDE_WIN32"],
-    "@rules_platform//platform:windows_x64_msvc": ["-DGLSLANG_OSINCLUDE_WIN32"],
-    "@rules_platform//platform:windows_x64_msys": ["-DGLSLANG_OSINCLUDE_WIN32"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64": ["-DGLSLANG_OSINCLUDE_WIN32"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64_msvc": ["-DGLSLANG_OSINCLUDE_WIN32"],
+    "@com_github_renatoutsch_rules_system//platform:windows_x64_msys": ["-DGLSLANG_OSINCLUDE_WIN32"],
     "//conditions:default": ["-DGLSLANG_OSINCLUDE_UNIX"],
 })
 
@@ -126,9 +126,9 @@ cc_library(
         # OSDependent
         "glslang/OSDependent/osinclude.h",
     ] + select({  # TODO(renatoutsch): replace with platform_select once it's fixed.
-        "@rules_platform//platform:windows_x64": ["glslang/OSDependent/Windows/ossource.cpp"],
-        "@rules_platform//platform:windows_x64_msvc": ["glslang/OSDependent/Windows/ossource.cpp"],
-        "@rules_platform//platform:windows_x64_msys": ["glslang/OSDependent/Windows/ossource.cpp"],
+        "@com_github_renatoutsch_rules_system//platform:windows_x64": ["glslang/OSDependent/Windows/ossource.cpp"],
+        "@com_github_renatoutsch_rules_system//platform:windows_x64_msvc": ["glslang/OSDependent/Windows/ossource.cpp"],
+        "@com_github_renatoutsch_rules_system//platform:windows_x64_msys": ["glslang/OSDependent/Windows/ossource.cpp"],
         "//conditions:default": ["glslang/OSDependent/Unix/ossource.cpp"],
     }),
     # platform_select({

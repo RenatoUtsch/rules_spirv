@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_platform//platform:defs.bzl", "platform_select")
+load("@com_github_renatoutsch_rules_system//platform:defs.bzl", "platform_select")
 load("@rules_spirv//third_party/spirv_tools:generators.bzl",
       "generate_build_version",
       "generate_core_tables",

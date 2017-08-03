@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def spirv_repositories(omit_rules_platform=False,
+def spirv_repositories(omit_com_github_renatoutsch_rules_system=False,
                        omit_glslang=False,
                        omit_shaderc=False,
                        omit_spirv_headers=False,
                        omit_spirv_tools=False):
     """Imports dependencies for SPIR-V Rules."""
-    if not omit_rules_platform:
-        rules_platform()
+    if not omit_com_github_renatoutsch_rules_system:
+        com_github_renatoutsch_rules_system()
     if not omit_glslang:
         glslang()
     if not omit_shaderc:
@@ -29,13 +29,13 @@ def spirv_repositories(omit_rules_platform=False,
     if not omit_spirv_tools:
         spirv_tools()
 
-def rules_platform():
+def com_github_renatoutsch_rules_system():
     # TODO(renatoutsch): use a tag or commit once there's a release
     native.http_archive(
-        name = "rules_platform",
+        name = "com_github_renatoutsch_rules_system",
         #sha256 = "",  # TODO(renatoutsch): add once there's a release
-        strip_prefix = "rules_platform-master",
-        urls = ["https://github.com/RenatoUtsch/rules_platform/archive/master.zip"],
+        strip_prefix = "rules_system-master",
+        urls = ["https://github.com/RenatoUtsch/rules_system/archive/master.zip"],
     )
 
 def glslang():
