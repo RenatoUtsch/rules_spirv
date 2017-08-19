@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@com_github_renatoutsch_rules_system//platform:defs.bzl", "platform_select")
-load("@rules_spirv//third_party/spirv_tools:generators.bzl",
+load("@com_github_renatoutsch_rules_system//system:defs.bzl", "system_select")
+load("@com_github_renatoutsch_rules_spirv//third_party/spirv_tools:generators.bzl",
       "generate_build_version",
       "generate_core_tables",
       "generate_enum_string_mapping",
@@ -27,8 +27,8 @@ package(default_visibility = ["//visibility:public"])
 licenses(["notice"])  # Apache 2.0
 
 # TODO(renatoutsch): investigate why this gives a
-# no such package '@spirv_tools//platform' error.
-OS_DEFINITIONS = platform_select({
+# no such package '@spirv_tools//system' error.
+OS_DEFINITIONS = system_select({
     "linux": ["-DSPIRV_LINUX"],
     "macos": ["-DSPIRV_MAC"],
     "windows": ["-DSPIRV_WINDOWS"],

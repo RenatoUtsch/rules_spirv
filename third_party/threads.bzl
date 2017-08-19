@@ -13,17 +13,17 @@
 # limitations under the License.
 
 # Selects the right thread lib depending on the OS.
-# TODO(renatoutsch): use platform_select once it's working
+# TODO(renatoutsch): use system_select once it's working
 THREAD_LIBS = select({
-    "@com_github_renatoutsch_rules_system//platform:freebsd": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_k8": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_arm": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_piii": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_ppc": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_ppc64": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:linux_s390x": ["-lpthread"],
-    "@com_github_renatoutsch_rules_system//platform:windows_x64": ["-lpsapi"],
-    "@com_github_renatoutsch_rules_system//platform:windows_x64_msvc": ["-lpsapi"],
-    "@com_github_renatoutsch_rules_system//platform:windows_x64_msys": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//system:freebsd": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_k8": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_arm": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_piii": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_ppc": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_ppc64": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:linux_s390x": ["-lpthread"],
+    "@com_github_renatoutsch_rules_system//system:windows_x64": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//system:windows_x64_msvc": ["-lpsapi"],
+    "@com_github_renatoutsch_rules_system//system:windows_x64_msys": ["-lpsapi"],
     "//conditions:default": [],
 })
