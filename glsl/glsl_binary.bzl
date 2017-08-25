@@ -112,6 +112,11 @@ def _impl(ctx):
         progress_message = "Compiling SPIR-V binary {}".format(
             binary.short_path))
 
+    runfiles = ctx.runfiles(
+        files = [binary],
+    )
+    return [DefaultInfo(runfiles=runfiles)]
+
 glsl_binary = rule(
     attrs = {
         "deps": attr.label_list(providers = [GLSLInfo]),
