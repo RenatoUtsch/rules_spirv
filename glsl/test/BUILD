@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//glsl:defs.bzl", "glsl_library", "glsl_binary")
+load("//glsl:defs.bzl", "glsl_library", "glsl_binary", "glsl_preprocess_binary")
 
 package(default_visibility = ["//visibility:private"])
 
@@ -38,7 +38,7 @@ glsl_library(
     ],
 )
 
-glsl_binary(
+glsl_preprocess_binary(
     name = "main",
     srcs = ["main.comp"],
     deps = [

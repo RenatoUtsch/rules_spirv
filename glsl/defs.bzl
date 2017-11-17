@@ -13,4 +13,5 @@
 # limitations under the License.
 
 load(":glsl_binary.bzl", "glsl_binary")
+load(":glsl_binary.bzl", "glsl_preprocess_binary")
 load(":glsl_library.bzl", "glsl_library")
