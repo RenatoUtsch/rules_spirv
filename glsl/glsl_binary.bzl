@@ -185,7 +185,7 @@ def _glsl_preprocessed_binary_impl(ctx):
     output_files = [binary]
 
     cmd = (glslc_string + "-E " + version_string + define_string +
-          src_string + output_string)
+          include_string + src_string + output_string)
 
     ctx.action(
         inputs=srcs.to_list() + [glslc],
