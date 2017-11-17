@@ -167,7 +167,7 @@ Args:
         will still be named {name}.spv, though.
 """
 
-def _glsl_preprocess_binary_impl(ctx):
+def _glsl_preprocessed_binary_impl(ctx):
     glslc = ctx.executable._glslc
     binary = ctx.outputs.binary
 
@@ -201,7 +201,7 @@ def _glsl_preprocess_binary_impl(ctx):
     )
     return [DefaultInfo(runfiles=runfiles)]
 
-glsl_preprocess_binary = rule(
+glsl_preprocessed_binary = rule(
     attrs = {
         "deps": attr.label_list(providers = [GLSLInfo]),
         "srcs": attr.label_list(
@@ -224,7 +224,7 @@ glsl_preprocess_binary = rule(
     outputs = {
         "binary": "%{name}.glsl",
     },
-    implementation = _glsl_preprocess_binary_impl,
+    implementation = _glsl_preprocessed_binary_impl,
 )
 
 """
